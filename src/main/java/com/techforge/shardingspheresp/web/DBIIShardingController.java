@@ -17,53 +17,53 @@ import java.util.Map;
  */
 
 @RestController
-@RequestMapping("/sharding")
-public class ShardingController {
-    private final static Logger logger = LoggerFactory.getLogger(ShardingController.class);
+@RequestMapping("/dbii_sharding")
+public class DBIIShardingController {
+    private final static Logger logger = LoggerFactory.getLogger(DBIIShardingController.class);
 
 
     @Autowired
-    JdbcTemplate jdbcTemplate;
+    JdbcTemplate dbii_jdbcTemplate;
 
     @RequestMapping(value = "/insert", method = RequestMethod.GET)
     public Object index() throws Exception {
         String sql = "insert into tbl_order(order_id,user_id) values(?,?)";
         for (int i = 10000; i < 10100; i++) {
-            jdbcTemplate.update(sql, i, 10000);
+            dbii_jdbcTemplate.update(sql, i, 10000);
         }
         return "OK";
     }
 
     @RequestMapping(value = "/limit", method = RequestMethod.GET)
     public String limit() throws Exception {
-        List<Map<String, Object>> list = jdbcTemplate.queryForList("select id,order_id from tbl_order order by order_id limit ?,?", 2, 4);
+        List<Map<String, Object>> list = dbii_jdbcTemplate.queryForList("select id,order_id from tbl_order order by order_id limit ?,?", 2, 4);
         System.out.println(UtilJackson.toJSON(list));
         return "OK";
     }
 
     @RequestMapping(value = "/select_object", method = RequestMethod.GET)
     public String select_object() throws Exception {
-        List<Map<String, Object>> list = jdbcTemplate.queryForList("select * from tbl_order where order_id = ?", 10002);
+        List<Map<String, Object>> list = dbii_jdbcTemplate.queryForList("select * from tbl_order where order_id = ?", 10002);
         System.out.println(UtilJackson.toJSON(list));
         return "OK";
     }
 
     @RequestMapping(value = "/select_list", method = RequestMethod.GET)
     public String select_list() throws Exception {
-        List<Map<String, Object>> list = jdbcTemplate.queryForList("select * from tbl_order where order_id in (10001,10002,10005,10020)");
+        List<Map<String, Object>> list = dbii_jdbcTemplate.queryForList("select * from tbl_order where order_id in (10001,10002,10005,10020)");
         System.out.println(UtilJackson.toJSON(list));
         return "OK";
     }
 
     @RequestMapping(value = "/clear", method = RequestMethod.GET)
     public String clear() throws Exception {
-        jdbcTemplate.update("delete from tbl_order");
+        dbii_jdbcTemplate.update("delete from tbl_order");
         return "OK";
     }
 
     @RequestMapping(value = "/count", method = RequestMethod.GET)
     public String count() throws Exception {
-        Long c = jdbcTemplate.queryForObject("select count(*) from tbl_order", Long.class);
+        Long c = dbii_jdbcTemplate.queryForObject("select count(*) from tbl_order", Long.class);
         System.out.println(c);
         return "OK";
     }

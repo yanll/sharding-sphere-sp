@@ -18,9 +18,9 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class DataSourceConfiguration {
+public class MySQLDataSourceConfiguration {
 
-    private Logger logger = LoggerFactory.getLogger(DataSourceConfiguration.class);
+    private Logger logger = LoggerFactory.getLogger(MySQLDataSourceConfiguration.class);
 
     @Value("${druid.datasource.username}")
     private String username;
@@ -108,28 +108,19 @@ public class DataSourceConfiguration {
         Map<String, DataSource> dataSourceMap = new HashMap<>();
         dataSourceMap.put("ds0", dataSource0());
         dataSourceMap.put("ds1", dataSource1());
-//        dataSourceMap.put("ds2", dataSource2());
-//        dataSourceMap.put("ds3", dataSource3());
+        dataSourceMap.put("ds2", dataSource2());
+        dataSourceMap.put("ds3", dataSource3());
 
         //
         TableRuleConfiguration orderTableRuleConfig = new TableRuleConfiguration();
         orderTableRuleConfig.setLogicTable("tbl_order");
-        orderTableRuleConfig.setActualDataNodes("ds${0}.tbl_order_${0..1}");
+        orderTableRuleConfig.setActualDataNodes("ds${0..3}.tbl_order_${0..1}");
         // 配置分库 + 分表策略
-//        orderTableRuleConfig.setDatabaseShardingStrategyConfig(new InlineShardingStrategyConfiguration("user_id", "ds${user_id % 4}"));
-        orderTableRuleConfig.setTableShardingStrategyConfig(new InlineShardingStrategyConfiguration("user_id", "tbl_order_${user_id % 2}"));
-
-        //
-//        TableRuleConfiguration itemTableRuleConfig = new TableRuleConfiguration();
-//        itemTableRuleConfig.setLogicTable("tbl_order_item");
-//        itemTableRuleConfig.setActualDataNodes("ds${0..3}.tbl_order_item_${0..1}");
-        // 配置分库 + 分表策略
-//        itemTableRuleConfig.setDatabaseShardingStrategyConfig(new InlineShardingStrategyConfiguration("user_id", "ds${user_id % 4}"));
-//        itemTableRuleConfig.setTableShardingStrategyConfig(new InlineShardingStrategyConfiguration("item_id", "tbl_order_item_${item_id % 2}"));
+        orderTableRuleConfig.setDatabaseShardingStrategyConfig(new InlineShardingStrategyConfiguration("user_id", "ds${user_id % 4}"));
+        orderTableRuleConfig.setTableShardingStrategyConfig(new InlineShardingStrategyConfiguration("order_id", "tbl_order_${order_id % 2}"));
 
 
         shardingRuleConfig.getTableRuleConfigs().add(orderTableRuleConfig);
-//        shardingRuleConfig.getTableRuleConfigs().add(itemTableRuleConfig);
 
 
         // 获取数据源对象
