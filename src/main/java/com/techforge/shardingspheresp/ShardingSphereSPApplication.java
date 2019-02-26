@@ -12,7 +12,10 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @EnableAutoConfiguration
-@ComponentScan(basePackages = {}, basePackageClasses = FrameworkUtilConfiguration.class)
+@ComponentScan(
+        basePackages = {"com.techforge.shardingspheresp"},
+        basePackageClasses = {FrameworkUtilConfiguration.class}
+)
 public class ShardingSphereSPApplication {
 
 
