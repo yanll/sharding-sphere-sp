@@ -5,8 +5,8 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({
-        MySQLDataSourceConfiguration.class,
-        DBIIDataSourceConfiguration.class
+        /*DBIIDataSourceConfiguration.class,*/
+        MySQLDataSourceConfiguration.class
 })
 public class FrameworkUtilConfiguration {
 
