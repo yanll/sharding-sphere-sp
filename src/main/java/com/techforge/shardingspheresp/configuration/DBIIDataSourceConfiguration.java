@@ -43,7 +43,7 @@ public class DBIIDataSourceConfiguration {
         datasource.setTestOnBorrow(false);
         datasource.setTestOnReturn(false);
         datasource.setTimeBetweenEvictionRunsMillis(60);
-        datasource.setValidationQuery("select 'x'");
+        datasource.setValidationQuery("VALUES 'x'");
         return datasource;
     }
 

@@ -7,3 +7,8 @@ druid:
     url1: jdbc:mysql://local_docker:3301/db1?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
     url2: jdbc:mysql://local_docker:3302/db0?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
     url3: jdbc:mysql://local_docker:3302/db1?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+
+    username.dbii: db2inst1
+    password.dbii: root
+    driverClassName.dbii: com.ibm.db2.jcc.DB2Driver
+    url0.dbii: jdbc:db2://local_docker:50000/SP

@@ -26,7 +26,7 @@ public class ShardingController {
     JdbcTemplate jdbcTemplate;
 
     @RequestMapping(value = "/insert", method = RequestMethod.GET)
-    public Object index() throws Exception {
+    public Object insert() {
         String sql = "insert into tbl_order(order_id,user_id) values(?,?)";
         for (int i = 10000; i < 10100; i++) {
             jdbcTemplate.update(sql, i, 10000);
@@ -35,34 +35,34 @@ public class ShardingController {
     }
 
     @RequestMapping(value = "/limit", method = RequestMethod.GET)
-    public String limit() throws Exception {
+    public String limit() {
         List<Map<String, Object>> list = jdbcTemplate.queryForList("select id,order_id from tbl_order order by order_id limit ?,?", 2, 4);
         System.out.println(UtilJackson.toJSON(list));
         return "OK";
     }
 
     @RequestMapping(value = "/select_object", method = RequestMethod.GET)
-    public String select_object() throws Exception {
+    public String select_object() {
         List<Map<String, Object>> list = jdbcTemplate.queryForList("select * from tbl_order where order_id = ?", 10002);
         System.out.println(UtilJackson.toJSON(list));
         return "OK";
     }
 
     @RequestMapping(value = "/select_list", method = RequestMethod.GET)
-    public String select_list() throws Exception {
+    public String select_list() {
         List<Map<String, Object>> list = jdbcTemplate.queryForList("select * from tbl_order where order_id in (10001,10002,10005,10020)");
         System.out.println(UtilJackson.toJSON(list));
         return "OK";
     }
 
     @RequestMapping(value = "/clear", method = RequestMethod.GET)
-    public String clear() throws Exception {
+    public String clear() {
         jdbcTemplate.update("delete from tbl_order");
         return "OK";
     }
 
     @RequestMapping(value = "/count", method = RequestMethod.GET)
-    public String count() throws Exception {
+    public String count() {
         Long c = jdbcTemplate.queryForObject("select count(*) from tbl_order", Long.class);
         System.out.println(c);
         return "OK";
