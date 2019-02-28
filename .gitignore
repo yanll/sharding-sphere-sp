@@ -12,3 +12,4 @@ target
 **/.classpath
 **/target/
 
+/src/main/java/io/shardingsphere
