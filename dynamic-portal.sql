@@ -25,6 +25,10 @@ create table `tbl_portal` (
   primary key (`id`)
 ) engine=innodb auto_increment=10001 default charset=utf8 comment='portal';
 
+ALTER TABLE `tbl_portal` ADD INDEX tbl_portal_idx_major (`major`);
+ALTER TABLE `tbl_portal` ADD INDEX tbl_portal_idx_category (`category`);
+ALTER TABLE `tbl_portal` ADD INDEX tbl_portal_idx_instance (`instance`);
+ALTER TABLE `tbl_portal` ADD INDEX tbl_portal_idx_portal_status (`portal_status`);
 
 
 
