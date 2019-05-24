@@ -41,3 +41,26 @@ insert into tbl_portal(major,category,instance,title,hierarchy)values('workstati
 insert into tbl_portal(major,category,instance,title,hierarchy)values('workstation','business_app','','业务应用','category');
 insert into tbl_portal(major,category,instance,title,hierarchy)values('workstation','business_app','security','安全精灵','instance');
 insert into tbl_portal(major,category,instance,title,hierarchy)values('workstation','business_app','op','易宝工单','instance');
+
+
+
+
+
+
+CREATE TABLE tbl_secret_key (
+	id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'ID',
+	key_code VARCHAR(64) NOT NULL COMMENT '秘钥编码',
+	key_type VARCHAR(64) NOT NULL COMMENT '秘钥类型',
+	key_rule VARCHAR(64) NOT NULL COMMENT '秘钥规则',
+	status VARCHAR(64) NOT NULL	COMMENT '状态',
+	key_content VARCHAR(256) NOT NULL COMMENT '秘钥内容',
+	effect_datetime DATETIME COMMENT '生效时间',
+	created_datetime DATETIME NOT NULL COMMENT '创建时间',
+	last_modified_datetime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP	COMMENT '最后修改时间',
+	PRIMARY KEY (id)
+) ENGINE = InnoDB AUTO_INCREMENT = 100 DEFAULT CHARSET = utf8;
+
+ALTER TABLE tbl_secret_key ADD INDEX tbl_secret_key_idx_key_code (`key_code`);
+
+alter table hbird.tbl_user_info add job_addr varchar(64) Null;
+
